@@ -48,6 +48,7 @@ public class Customer {
         return strBuilder.toString();
     }
 
+    //计算租金
     private double getThisAmount(Rental each) {
         double thisAmount = 0;
         switch (each.getMovie().getPriceCode()) {
