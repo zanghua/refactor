@@ -31,23 +31,7 @@ public class Customer {
         while (rentals.hasMoreElements()) {
             double thisAmount = 0;
             Rental each = (Rental) rentals.nextElement();
-            switch (each.getMovie().getPriceCode()) {
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if (each.getDays() > 3) {
-                        thisAmount += (each.getDays() - 3) * 1.5;
-                    }
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.getDays() * 3;
-                    break;
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if (each.getDays() > 2) {
-                        thisAmount += (each.getDays() - 2) * 1.5;
-                    }
-                    break;
-            }
+            thisAmount = this.getThisAmount(each);
             frequentRenterPoints++;
             if (each.getMovie().getPriceCode() == Movie.NEW_RELEASE && each.getDays() > 1) {
                 frequentRenterPoints++;
@@ -62,5 +46,27 @@ public class Customer {
                 .append(" frequent renter points");
 
         return strBuilder.toString();
+    }
+
+    private double getThisAmount(Rental each) {
+        double thisAmount = 0;
+        switch (each.getMovie().getPriceCode()) {
+            case Movie.CHILDRENS:
+                thisAmount += 1.5;
+                if (each.getDays() > 3) {
+                    thisAmount += (each.getDays() - 3) * 1.5;
+                }
+                break;
+            case Movie.NEW_RELEASE:
+                thisAmount += each.getDays() * 3;
+                break;
+            case Movie.REGULAR:
+                thisAmount += 2;
+                if (each.getDays() > 2) {
+                    thisAmount += (each.getDays() - 2) * 1.5;
+                }
+                break;
+        }
+        return thisAmount;
     }
 }
